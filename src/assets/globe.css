@@ -1,0 +1,43 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+}
+
+.list-btn-box {
+    margin-bottom: 10px;
+}
+
+.el-pagination {
+    text-align: center;
+}
+
+.list-form .el-form-item__label {
+    text-align: center !important;
+    font-weight: 1000;
+    padding: 0 !important;
+}
+
+.save-form-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save-form-div form {
+    width: 70%;
+}
+
+/* .save-form-div.el-form-item {
+    width: 100px !important;
+} */
+
+/* .list-form .el-form-item__content{
+    margin: 0!important;
+}
+.list-form .el-form-item{
+    margin: 0!important;
+} */
