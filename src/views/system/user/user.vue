@@ -185,16 +185,31 @@ export default {
       this.showDialogForm(row.userId);
     },
     handleDelete (index, row) {
-      deleteUser(row.userId).then(() => {
-        this.$message.success("删除成功");
-        this.searchList();
-      })
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteUser(row.userId).then(() => {
+          this.$message.success("删除成功");
+          this.searchList();
+        })
+      }).catch(() => {
+      });
     },
     deleteByIds () {
-      deleteUser(this.userIds).then(() => {
-        this.$message.success("删除成功");
-        this.searchList();
-      })
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteUser(this.userIds).then(() => {
+          this.$message.success("删除成功");
+          this.searchList();
+        })
+      }).catch(() => {
+      });
+
     },
     handleSelectionChange (val) {
       this.userIds = val.map(item => item.userId);

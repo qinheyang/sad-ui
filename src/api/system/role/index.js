@@ -8,10 +8,17 @@ export function listRole (params) {
 		params: params
 	})
 }
-export function saveRole (params) {
+export function addRole (params) {
 	return request({
-		url: prefix + 'save',
+		url: prefix + 'add',
 		method: 'post',
+		data: params
+	})
+}
+export function updateRole (params) {
+	return request({
+		url: prefix + 'update',
+		method: 'put',
 		data: params
 	})
 }

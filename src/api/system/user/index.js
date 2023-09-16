@@ -8,10 +8,18 @@ export function listUser (params) {
 		params: params
 	})
 }
-export function saveUser (params) {
+export function addUser (params) {
 	return request({
-		url: prefix + 'save',
+		url: prefix + 'add',
 		method: 'post',
+		data: params
+	})
+}
+
+export function updateUser (params) {
+	return request({
+		url: prefix + 'update',
+		method: 'put',
 		data: params
 	})
 }

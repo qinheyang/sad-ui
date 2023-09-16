@@ -1,6 +1,7 @@
 <template>
   <el-dialog :title="dialogFormTitle"
              :visible.sync="dialogFormVisible"
+             :close-on-click-modal="$globeValue.clickModalClose"
              class="save-form-div"
              @closed=closed()>
     <el-form v-loading='loading'
@@ -61,10 +62,9 @@
   </el-dialog>
 </template>
 <script>
-import { saveUser, getUserInfo } from '@/api/system/user';
+import { addUser, updateUser, getUserInfo } from '@/api/system/user';
 import regex from '@/utils/regex';
 import stringUtil from '@/utils/string-util';
-import msgUtil from '@/utils/msg-util';
 export default ({
   data () {
     var phoneValiadte = (rule, value, callback) => {
@@ -116,12 +116,23 @@ export default ({
       this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          saveUser(this.saveForm).then(() => {
-            this.cancel();
-            this.$globeValue.loadingDelay(this);
-            this.$emit('refresh-list');
-            msgUtil.success("保存成功");
-          })
+          if (this.saveForm.userId === undefined) {
+            addUser(this.saveForm).then(() => {
+              this.cancel();
+              this.$globeValue.loadingDelay(this);
+              this.$emit('refresh-list');
+              this.$message.success("保存成功");
+            })
+
+          } else {
+            updateUser(this.saveForm).then(() => {
+              this.cancel();
+              this.$globeValue.loadingDelay(this);
+              this.$emit('refresh-list');
+              this.$message.success("保存成功");
+            })
+          }
+
 
         } else {
           this.loading = false;

@@ -5,10 +5,10 @@
              :model="params"
              label-width="60px"
              class="list-form">
-      <el-form-item prop="roleName"
-                    label="角色名">
-        <el-input placeholder="请输入角色名"
-                  v-model="params.roleName">
+      <el-form-item prop="menuName" 
+                    label="菜单名">
+        <el-input placeholder="请输入菜单名"
+                  v-model="params.menuName">
         </el-input>
       </el-form-item>
       <el-form-item>
@@ -47,11 +47,11 @@
                        fixed></el-table-column>
       <el-table-column type="index"
                        align="center"
-                       label="角色编号"
+                       label="菜单编号"
                        width="100"></el-table-column>
       <el-table-column align="center"
-                       prop="roleName"
-                       label="角色名">
+                       prop="menuName"
+                       label="菜单名">
       </el-table-column>
       <el-table-column align="center"
                        prop="createTime"
@@ -80,28 +80,107 @@
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="total">
     </el-pagination>
+    <menuSave ref='menuSave'
+              @refresh-list="refreshList"></menuSave>
   </div>
 </template>
 <script>
+import { listMenu, deleteMenu } from '@/api/system/menu';
+import menuSave from './menu-save';
+import { formatTime } from '@/utils/elementui-util'
 export default {
+  components: {
+    menuSave
+  },
   data () {
     return {
-      data: {
-        tableData: null,
-        total: null,
-        loading: true,
-        params: {
-          pageNum: 1,
-          pageSize: 10,
-          roleName: null,
-        },
-        roleIds: [],
-        deleteDisable: true,
-      }
+      tableData: null,
+      total: null,
+      loading: true,
+      params: {
+        pageNum: 1,
+        pageSize: 10,
+        menuName: null,
+      },
+      menuIds: [],
+      deleteDisable: true,
+
     };
   },
+  created () {
+    this.searchList();
+  },
   methods: {
+    formatTime,
+    handleSizeChange (val) {
+      this.params.pageSize = val;
+      this.searchList();
 
+    },
+    handleCurrentChange (val) {
+      this.params.pageNum = val;
+      this.searchList();
+    },
+    searchList () {
+      this.loading = true;
+      listMenu(this.params).then(resp => {
+        this.tableData = resp.data.records;
+        this.total = resp.data.total;
+        this.$globeValue.loadingDelay(this);
+      });
+    },
+    refresh (formName) {
+      this.$refs[formName].resetFields();
+    },
+    showDialogForm (menuId) {
+      this.$refs.menuSave.openDialog(menuId);
+    },
+    refreshList (menuId) {
+      if (menuId === undefined) {
+        this.params.pageNum = 1;
+      }
+      this.searchList();
+    },
+    handleEdit (index, row) {
+      this.showDialogForm(row.menuId);
+    },
+    handleDelete (index, row) {
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteMenu(row.menuId).then(() => {
+          this.$message.success("删除成功");
+          this.searchList();
+        })
+      }).catch(() => {
+      });
+
+    },
+    deleteByIds () {
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteMenu(this.menuIds).then(() => {
+          this.$message.success("删除成功");
+          this.searchList();
+        })
+      }).catch(() => {
+      });
+
+    },
+    handleSelectionChange (val) {
+      this.menuIds = val.map(item => item.menuId);
+      console.log(this.menuIds)
+      if (val.length != 0) {
+        this.deleteDisable = false;
+      } else {
+        this.deleteDisable = true;
+      }
+    },
   },
 };
 </script>

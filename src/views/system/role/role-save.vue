@@ -2,6 +2,7 @@
   <el-dialog :title="dialogFormTitle"
              :visible.sync="dialogFormVisible"
              class="save-form-div"
+             close-on-click-modal="$.globeValue.clickModalClose"
              @closed=closed()>
     <el-form v-loading='loading'
              :model="saveForm"
@@ -28,8 +29,7 @@
   </el-dialog>
 </template>
 <script>
-import { saveRole, getRoleInfo } from '@/api/system/role';
-import msgUtil from '@/utils/msg-util';
+import { updateRole, addRole, getRoleInfo } from '@/api/system/role';
 export default ({
   data () {
     return {
@@ -53,13 +53,22 @@ export default ({
       this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          saveRole(this.saveForm).then(() => {
-            this.cancel();
-            this.$globeValue.loadingDelay(this);
-            this.$emit('refresh-list');
-            msgUtil.success("保存成功");
-          })
+          if (this.saveForm.roleId === undefined) {
+            addRole(this.saveForm).then(() => {
+              this.cancel();
+              this.$globeValue.loadingDelay(this);
+              this.$emit('refresh-list');
+              this.$message.success("保存成功");
+            })
 
+          } else {
+            updateRole(this.saveForm).then(() => {
+              this.cancel();
+              this.$globeValue.loadingDelay(this);
+              this.$emit('refresh-list');
+              this.$message.success("保存成功");
+            })
+          }
         } else {
           this.loading = false;
           return false;

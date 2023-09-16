@@ -3,8 +3,8 @@ const glole = {
 		setTimeout(() => {
 			t.loading = false;
 		}, 700);
-
 	},
+	clickModalClose: false,
 
 }
 
