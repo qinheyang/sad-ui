@@ -5,7 +5,7 @@
              :model="params"
              label-width="60px"
              class="list-form">
-      <el-form-item prop="menuName" 
+      <el-form-item prop="menuName"
                     label="菜单名">
         <el-input placeholder="请输入菜单名"
                   v-model="params.menuName">
@@ -40,25 +40,34 @@
     </el-form>
     <el-table :data="tableData"
               stripe
-              @selection-change="handleSelectionChange"
+              row-key="menuId"
+              lazy
+              :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
               height="490px">
-      <el-table-column align="center"
+      <el-table-column align="left"
                        type="selection"
                        fixed></el-table-column>
       <el-table-column type="index"
-                       align="center"
+                       align="left"
                        label="菜单编号"
                        width="100"></el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        prop="menuName"
                        label="菜单名">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
+                       label="图标">
+        <template slot-scope="scope">
+          <i :class="scope.row.icon"></i>
+
+        </template>
+      </el-table-column>
+      <el-table-column align="left"
                        prop="createTime"
                        label="创建时间"
                        :formatter="formatTime">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        label="操作">
 
         <template slot-scope="scope">
@@ -71,15 +80,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination background
-                   @size-change="handleSizeChange"
-                   @current-change="handleCurrentChange"
-                   :current-page="params.pageNum"
-                   :page-sizes="[10, 20, 30, 40]"
-                   :page-size="params.pageSize"
-                   layout="total, sizes, prev, pager, next, jumper"
-                   :total="total">
-    </el-pagination>
     <menuSave ref='menuSave'
               @refresh-list="refreshList"></menuSave>
   </div>
@@ -88,6 +88,7 @@
 import { listMenu, deleteMenu } from '@/api/system/menu';
 import menuSave from './menu-save';
 import { formatTime } from '@/utils/elementui-util'
+import { handleTree } from '@/utils/tree-util'
 export default {
   components: {
     menuSave
@@ -98,8 +99,6 @@ export default {
       total: null,
       loading: true,
       params: {
-        pageNum: 1,
-        pageSize: 10,
         menuName: null,
       },
       menuIds: [],
@@ -112,20 +111,13 @@ export default {
   },
   methods: {
     formatTime,
-    handleSizeChange (val) {
-      this.params.pageSize = val;
-      this.searchList();
 
-    },
-    handleCurrentChange (val) {
-      this.params.pageNum = val;
-      this.searchList();
-    },
     searchList () {
       this.loading = true;
       listMenu(this.params).then(resp => {
-        this.tableData = resp.data.records;
-        this.total = resp.data.total;
+        this.tableData = handleTree(resp.data);
+
+
         this.$globeValue.loadingDelay(this);
       });
     },
@@ -158,29 +150,7 @@ export default {
       });
 
     },
-    deleteByIds () {
-      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        deleteMenu(this.menuIds).then(() => {
-          this.$message.success("删除成功");
-          this.searchList();
-        })
-      }).catch(() => {
-      });
 
-    },
-    handleSelectionChange (val) {
-      this.menuIds = val.map(item => item.menuId);
-      console.log(this.menuIds)
-      if (val.length != 0) {
-        this.deleteDisable = false;
-      } else {
-        this.deleteDisable = true;
-      }
-    },
   },
 };
 </script>

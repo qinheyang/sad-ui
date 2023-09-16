@@ -75,7 +75,6 @@ export default {
       }
 
       this.breadcrumbList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
-      console.log(this.breadcrumbList)
     },
     isHome (route) {
       const name = route && route.name
