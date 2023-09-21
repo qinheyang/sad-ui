@@ -64,17 +64,17 @@
 <script>
 import { addUser, updateUser, getUserInfo } from '@/api/system/user';
 import regex from '@/utils/regex';
-import stringUtil from '@/utils/string-util';
+import { isEmpty } from '@/utils/string-util';
 export default ({
   data () {
     var phoneValiadte = (rule, value, callback) => {
-      if (regex.phone_regex(value) || stringUtil.isEmpty(value)) {
+      if (regex.phone_regex(value) || isEmpty(value)) {
         callback();
       }
       callback(new Error("请输入正确格式的电话号码"));
     };
     var emailValiadte = (rule, value, callback) => {
-      if (regex.email_regex(value) || stringUtil.isEmpty(value)) {
+      if (regex.email_regex(value) || isEmpty(value)) {
         callback();
       }
       callback(new Error("请输入正确格式的邮箱"));

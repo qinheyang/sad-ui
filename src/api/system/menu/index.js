@@ -8,10 +8,17 @@ export function listMenu (params) {
 		params: params
 	})
 }
-export function saveMenu (params) {
+export function addMenu (params) {
 	return request({
-		url: prefix + 'save',
+		url: prefix + 'add',
 		method: 'post',
+		data: params
+	})
+}
+export function updateMenu (params) {
+	return request({
+		url: prefix + 'update',
+		method: 'put',
 		data: params
 	})
 }

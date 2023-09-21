@@ -1,6 +1,7 @@
 export function handleTree (list) {
 	var tree = [];
 	var childListMap = {};
+	var nodes = {};
 
 	for (let d of list) {
 
@@ -13,6 +14,7 @@ export function handleTree (list) {
 		if (d.parentId != null) {
 			childListMap[d.parentId].push(d);
 		}
+		nodes[d.menuId] = d;
 
 	}
 	appendChild(tree);

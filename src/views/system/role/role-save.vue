@@ -2,7 +2,7 @@
   <el-dialog :title="dialogFormTitle"
              :visible.sync="dialogFormVisible"
              class="save-form-div"
-             close-on-click-modal="$.globeValue.clickModalClose"
+             :close-on-click-modal="$globeValue.clickModalClose"
              @closed=closed()>
     <el-form v-loading='loading'
              :model="saveForm"
