@@ -62,15 +62,6 @@ const router = new Router({
     mode: 'history',
     routes
 });
-function inWhiteList (toPath) {
-    const whiteList = ['/login', '/register', '/404']
-    const path = whiteList.find((value) => {
-        // 使用正则匹配
-        const reg = new RegExp('^' + value)
-        return reg.test(toPath)
-    })
-    return !!path
-}
 
 router.beforeEach((to, from, next) => {
     const token = getToken();
