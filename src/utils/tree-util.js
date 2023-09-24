@@ -12,13 +12,18 @@ export function handleTree (list) {
 			tree.push(d);
 		}
 		if (d.parentId != null) {
+
+			if (childListMap[d.parentId] == undefined) {
+				childListMap[d.parentId] = [];
+			}
+			console.log(childListMap[d.parentId])
 			childListMap[d.parentId].push(d);
 		}
 		nodes[d.menuId] = d;
 
 	}
 	appendChild(tree);
-
+	console.log(childListMap)
 	function appendChild (data) {
 		for (let t of data) {
 			if (childListMap[t.menuId] != null) {
@@ -28,6 +33,7 @@ export function handleTree (list) {
 		}
 
 	}
+	console.log(tree)
 	return tree;
 
 }

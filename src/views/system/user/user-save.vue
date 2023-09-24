@@ -26,16 +26,7 @@
                   auto-complete="off">
         </el-input>
       </el-form-item>
-      <el-form-item prop="password"
-                    label="密码"
-                    auto-complete="off">
-        <el-input type="password"
-                  placeholder="请输入密码"
-                  v-model="saveForm.password"
-                  maxlength=20
-                  auto-complete="off">
-        </el-input>
-      </el-form-item>
+
       <el-form-item prop="email"
                     label="邮箱">
         <el-input placeholder="请输入邮箱"
@@ -51,6 +42,18 @@
                   maxlength="11"
                   auto-complete="off">
         </el-input>
+      </el-form-item>
+      <el-form-item prop="roleIds"
+                    label="roleIds">
+        <el-select v-model="saveForm.roleIds"
+                   multiple
+                   placeholder="请选择角色">
+          <el-option v-for="item in options"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <div slot="footer"
@@ -84,9 +87,9 @@ export default ({
         id: undefined,
         userName: undefined,
         nickName: undefined,
-        password: 123456,
         email: undefined,
-        phone: undefined
+        phone: undefined,
+        roleIds: undefined
       },
       loading: false,
       dialogFormVisible: false,
@@ -98,9 +101,6 @@ export default ({
         ],
         nickName: [{
           required: true, message: '请输入昵称', trigger: 'blur',
-        }],
-        password: [{
-          required: true, message: '请输入密码', trigger: 'blur'
         }],
         email: [{
           trigger: 'blur', validator: emailValiadte

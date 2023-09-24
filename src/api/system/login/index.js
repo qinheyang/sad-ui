@@ -8,3 +8,10 @@ export function login (params) {
     data: params
   })
 }
+
+export function getRouters () {
+  return request({
+    url: prefix + '/getRouters',
+    method: 'get',
+  })
+}

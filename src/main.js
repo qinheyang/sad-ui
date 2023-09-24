@@ -5,6 +5,8 @@ import App from '@/App.vue'
 import '@/assets/globe.css'
 import globeValue from '@/utils/glole'
 import router from './router'
+
+import './router/permission'
 import store from './store'
 Vue.use(ElementUI, { size: 'small' });
 Vue.config.productionTip = false

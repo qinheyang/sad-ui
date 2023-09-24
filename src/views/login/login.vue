@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { login } from '@/api/login';
+import { login } from '@/api/system/login';
 import { setToken, removeToken } from '@/utils/auth'
 export default {
   name: "login",

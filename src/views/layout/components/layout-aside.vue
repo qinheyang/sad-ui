@@ -17,47 +17,53 @@ export default {
   components: {
     treeMenu,
   },
+  computed: {
+    menuList () {
+
+      return this.$store.state.dynamicRoutes;
+    }
+  },
   props: ['isCollapse'],
   data () {
     return {
-      menuList: [
-        {
-          id: "1",
-          menuName: "首页",
-          icon: "el-icon-platform-eleme",
-          type: "1",
-          path: "/home",
-        },
-        {
-          id: "2",
-          menuName: "系统管理",
-          icon: "el-icon-s-tools",
-          type: "0",
-          childList: [
-            {
-              id: "3",
-              menuName: "用户管理",
-              icon: "el-icon-user-solid",
-              type: "1",
-              path: "/system/user",
-            },
-            {
-              id: "4",
-              menuName: "角色管理",
-              icon: "el-icon-s-custom",
-              type: "1",
-              path: "/system/role",
-            },
-            {
-              id: "5",
-              menuName: "菜单管理",
-              icon: "el-icon-s-custom",
-              type: "1",
-              path: "/system/menu",
-            },
-          ],
-        },
-      ],
+      // menuList: [
+      //   {
+      //     id: "1",
+      //     menuName: "首页",
+      //     icon: "el-icon-platform-eleme",
+      //     type: "1",
+      //     path: "/home",
+      //   },
+      //   {
+      //     id: "2",
+      //     menuName: "系统管理",
+      //     icon: "el-icon-s-tools",
+      //     type: "0",
+      //     childList: [
+      //       {
+      //         id: "3",
+      //         menuName: "用户管理",
+      //         icon: "el-icon-user-solid",
+      //         type: "1",
+      //         path: "/system/user",
+      //       },
+      //       {
+      //         id: "4",
+      //         menuName: "角色管理",
+      //         icon: "el-icon-s-custom",
+      //         type: "1",
+      //         path: "/system/role",
+      //       },
+      //       {
+      //         id: "5",
+      //         menuName: "菜单管理",
+      //         icon: "el-icon-s-custom",
+      //         type: "1",
+      //         path: "/system/menu",
+      //       },
+      //     ],
+      //   },
+      // ],
     }
   }
 

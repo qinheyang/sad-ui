@@ -1,21 +1,21 @@
 <template>
   <div>
     <template v-for="(m, i) in data">
-      <el-submenu :index="m.id"
+      <el-submenu :index="m.meta.id+''"
                   :key="i"
-                  v-if="m.type === '0'">
+                  v-if="m.meta.type === 'M'">
         <template slot="title">
-          <i :class="m.icon"></i>
-          <span slot="title">{{ m.menuName }}</span>
+          <i :class="m.meta.icon"></i>
+          <span slot="title">{{ m.meta.title }}</span>
         </template>
-        <tree-menu :data="m.childList"> </tree-menu>
+        <tree-menu :data="m.children"> </tree-menu>
       </el-submenu>
       <el-menu-item :index="m.path"
                     :key="i"
-                    v-else-if="m.type === '1'">
-        <i :class="m.icon"></i>
+                    v-else-if=" m.meta.type === 'C'">
+        <i :class="m.meta.icon"></i>
         <span slot="title"> {{
-        m.menuName
+       m.meta.title
       }}</span></el-menu-item>
     </template>
   </div>
@@ -36,7 +36,26 @@ export default {
   props: ["data"],
   name: "treeMenu",
   data () {
-    return {};
+    return {
+      //   datas: [{
+      //     path: "/system",
+      //     meta: {
+      //       title: "系统管理",
+      //       type: "M",
+      //       icon: "",
+      //       id: "1"
+      //     },
+      //     children: [{
+      //       path: "user",
+      //       meta: {
+      //         title: "用户管理",
+      //         type: "C",
+      //         icon: "",
+      //         id: "2"
+      //       },
+      //     }]
+      //   }]
+    };
   },
   created () { },
 };

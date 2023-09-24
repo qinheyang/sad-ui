@@ -158,10 +158,7 @@ export default ({
         }],
         isFrame: [
           { required: true, message: '请选择是否为外部链接', trigger: 'change' }
-        ], component: [{
-          required: true, message: '请输入组件地址', trigger: 'blur'
-
-        }]
+        ]
       },
       catalogueRules: {
         menuName: [
