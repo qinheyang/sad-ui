@@ -3,16 +3,17 @@
     <template v-for="(m, i) in data">
       <el-submenu :index="m.meta.id+''"
                   :key="i"
-                  v-if="m.meta.type === 'M'">
+                  v-if="m.meta.type === 'M' &&  m.meta.isShow==true">
         <template slot="title">
           <i :class="m.meta.icon"></i>
           <span slot="title">{{ m.meta.title }}</span>
         </template>
-        <tree-menu :data="m.children"> </tree-menu>
+        <tree-menu :data="m.children"
+                   :parentPath="m.path"> </tree-menu>
       </el-submenu>
-      <el-menu-item :index="m.path"
+      <el-menu-item :index="parentPath+'/'+m.path"
                     :key="i"
-                    v-else-if=" m.meta.type === 'C'">
+                    v-else-if=" m.meta.type === 'C' &&  m.meta.isShow==true">
         <i :class="m.meta.icon"></i>
         <span slot="title"> {{
        m.meta.title
@@ -33,7 +34,16 @@
 
 <script>
 export default {
-  props: ["data"],
+  props: {
+    data: {
+      type: Array,
+
+    },
+    parentPath: {
+      type: String,
+      default: ""
+    }
+  },
   name: "treeMenu",
   data () {
     return {

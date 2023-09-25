@@ -19,51 +19,21 @@ export default {
   },
   computed: {
     menuList () {
-
-      return this.$store.state.dynamicRoutes;
+      var menus = []
+      for (let item of this.$router.options.routes) {
+        if (item.redirect) {
+          menus.push(item.children[0])
+        } else {
+          menus.push(item)
+        }
+      }
+      menus.push(...this.$store.state.dynamicRoutes);
+      return menus;
     }
   },
   props: ['isCollapse'],
   data () {
     return {
-      // menuList: [
-      //   {
-      //     id: "1",
-      //     menuName: "首页",
-      //     icon: "el-icon-platform-eleme",
-      //     type: "1",
-      //     path: "/home",
-      //   },
-      //   {
-      //     id: "2",
-      //     menuName: "系统管理",
-      //     icon: "el-icon-s-tools",
-      //     type: "0",
-      //     childList: [
-      //       {
-      //         id: "3",
-      //         menuName: "用户管理",
-      //         icon: "el-icon-user-solid",
-      //         type: "1",
-      //         path: "/system/user",
-      //       },
-      //       {
-      //         id: "4",
-      //         menuName: "角色管理",
-      //         icon: "el-icon-s-custom",
-      //         type: "1",
-      //         path: "/system/role",
-      //       },
-      //       {
-      //         id: "5",
-      //         menuName: "菜单管理",
-      //         icon: "el-icon-s-custom",
-      //         type: "1",
-      //         path: "/system/menu",
-      //       },
-      //     ],
-      //   },
-      // ],
     }
   }
 

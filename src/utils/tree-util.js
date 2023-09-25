@@ -16,7 +16,6 @@ export function handleTree (list) {
 			if (childListMap[d.parentId] == undefined) {
 				childListMap[d.parentId] = [];
 			}
-			console.log(childListMap[d.parentId])
 			childListMap[d.parentId].push(d);
 		}
 		nodes[d.menuId] = d;

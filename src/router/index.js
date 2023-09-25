@@ -15,23 +15,24 @@ const routes = [
         redirect: '/home',
         name: 'home',
         meta: {
-            title: '首页',
-            icon: "",
-            type: "C"
+            isShow: false
         },
-        children: [{
-            path: '/home',
-            component: home,
-            meta: {
-                title: '首页',
-                icon: "",
-                type: "C"
+        children: [
+            {
+                path: 'home',
+                component: home,
+                meta: {
+                    title: '首页',
+                    icon: "el-icon-s-home",
+                    type: "C",
+                    isShow: true
+
+                },
             },
-        },
-
-
         ]
     },
+
+
     // {
     //     path: '/system',
     //     component: layout,
@@ -64,6 +65,9 @@ const routes = [
     {
         path: '/login',
         component: login,
+        meta: {
+            isShow: false
+        }
 
     },
 ];

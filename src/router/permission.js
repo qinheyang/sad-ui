@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
 			if (store.state.dynamicRoutes.length == 0) {
 				getRouters().then(resp => {
 					menuTree = resp.data;
-					let menuRouter = fnAddDynamicMenuRoutes(resp.data);
+					let menuRouter = fnAddDynamicMenuRoutes("/", resp.data);
 					store.dispatch('dynamicRoutes', menuRouter).then(() => {
 						for (let x of store.state.dynamicRoutes) {
 							router.addRoute(x)
@@ -70,6 +70,7 @@ router.beforeEach((to, from, next) => {
 				})
 				next()
 			} else {
+
 				next()
 			}
 

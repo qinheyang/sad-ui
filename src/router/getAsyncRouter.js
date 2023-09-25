@@ -1,5 +1,5 @@
 // 用于处理动态菜单数据，将其转为 route 形式
-export function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
+export function fnAddDynamicMenuRoutes (prefix, menuList = [], routes = []) {
 	// 用于保存普通路由数据
 	let temp = []
 	// 用于保存存在子路由的路由数据
@@ -9,14 +9,15 @@ export function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
 		// 存在子路由，则递归遍历，并返回数据作为 children 保存
 		if (menuList[i].children && menuList[i].children.length > 0) {
 			// 获取路由的基本格式
-			route = getRoute(menuList[i])
+			route = getRoute(prefix, menuList[i])
+
 			// 递归处理子路由数据，并返回，将其作为路由的 children 保存
-			route.children = fnAddDynamicMenuRoutes(menuList[i].children)
+			route.children = fnAddDynamicMenuRoutes("", menuList[i].children)
 			// 保存存在子路由的路由
 			routes.push(route)
 		} else {
 			// 保存普通路由
-			temp.push(getRoute(menuList[i]))
+			temp.push(getRoute(prefix, menuList[i]))
 		}
 	}
 	// 返回路由结果
@@ -24,17 +25,18 @@ export function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
 }
 
 // 返回路由的基本格式
-function getRoute (item) {
+function getRoute (prefix, item) {
 	// 路由基本格式
 	let route = {
-		path: item.path,
+		path: prefix + item.path,
 		// 路由所在组件
 		// component: (resolve) => require([`@/layout/Index`], resolve),
 		component: (resolve) => require([`@/views${item.component == '' ? '/layout/layout' : item.component}`], resolve),
 		meta: {
 			type: item.menuType,
 			title: item.menuName,
-			icon: item.icon
+			icon: item.icon,
+			isShow: true,
 		},
 		// 路由的子路由
 		children: []
