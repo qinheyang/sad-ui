@@ -1,4 +1,5 @@
 import request from "@/utils/request";
+import { parseStrEmpty } from "@/utils/string-util";
 const prefix = '/system/user/'
 
 export function listUser (params) {
@@ -25,7 +26,7 @@ export function updateUser (params) {
 }
 export function getUserInfo (userId) {
 	return request({
-		url: prefix + userId,
+		url: prefix + parseStrEmpty(userId),
 		method: 'get',
 
 	})

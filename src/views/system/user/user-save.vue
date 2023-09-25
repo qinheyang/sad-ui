@@ -44,14 +44,14 @@
         </el-input>
       </el-form-item>
       <el-form-item prop="roleIds"
-                    label="roleIds">
+                    label="角色">
         <el-select v-model="saveForm.roleIds"
                    multiple
                    placeholder="请选择角色">
-          <el-option v-for="item in options"
-                     :key="item.value"
-                     :label="item.label"
-                     :value="item.value">
+          <el-option v-for="i in roles"
+                     :key="i.id"
+                     :label="i.roleName"
+                     :value="i.roleId">
           </el-option>
         </el-select>
       </el-form-item>
@@ -91,6 +91,7 @@ export default ({
         phone: undefined,
         roleIds: undefined
       },
+      roles: [],
       loading: false,
       dialogFormVisible: false,
       dialogFormTitle: undefined,
@@ -142,12 +143,12 @@ export default ({
     },
     resetForm (formName) {
       this.saveForm = {
-        userId: undefined,
+        id: undefined,
         userName: undefined,
         nickName: undefined,
-        password: 123456,
         email: undefined,
-        phone: undefined
+        phone: undefined,
+        roleIds: undefined
 
       };
       this.$refs[formName].resetFields();
@@ -156,11 +157,15 @@ export default ({
     openDialog (userId) {
       if (userId === undefined) {
         this.dialogFormTitle = '用户新增';
-
+        getUserInfo().then((resp) => {
+          this.roles = resp.roles;
+        })
       } else {
         this.dialogFormTitle = '用户修改';
         getUserInfo(userId).then((resp) => {
           this.saveForm = resp.data;
+          
+          this.roles = resp.roles;
         })
       }
       this.dialogFormVisible = true;

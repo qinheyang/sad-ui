@@ -4,3 +4,10 @@ export function isEmpty (o) {
 	}
 	return false;
 }
+
+export function parseStrEmpty (str) {
+	if (!str || str == "undefined" || str == "null") {
+		return "";
+	}
+	return str;
+}
