@@ -45,7 +45,8 @@
       </el-form-item>
       <el-form-item prop="roleIds"
                     label="角色">
-        <el-select v-model="saveForm.roleIds"
+        <el-select style="width: 100%;"
+                   v-model="saveForm.roleIds"
                    multiple
                    placeholder="请选择角色">
           <el-option v-for="i in roles"
@@ -108,6 +109,9 @@ export default ({
         }],
         phone: [{
           trigger: 'blur', validator: phoneValiadte
+        }],
+        roleIds: [{
+          required: true, message: '请选择角色', trigger: 'change'
         }]
       }
     }
@@ -164,7 +168,6 @@ export default ({
         this.dialogFormTitle = '用户修改';
         getUserInfo(userId).then((resp) => {
           this.saveForm = resp.data;
-          
           this.roles = resp.roles;
         })
       }
