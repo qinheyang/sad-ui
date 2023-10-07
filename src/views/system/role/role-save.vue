@@ -18,6 +18,16 @@
                   auto-complete="off">
         </el-input>
       </el-form-item>
+      <el-form-item prop="menuIds"
+                    label="菜单权限">
+        <el-tree :data="menuList"
+                 ref="menuTree"
+                 show-checkbox
+                 node-key="menuId"
+                 :default-checked-keys="saveForm.menuIds"
+                 :props="menuTreeProps">
+        </el-tree>
+      </el-form-item>
 
     </el-form>
     <div slot="footer"
@@ -30,12 +40,29 @@
 </template>
 <script>
 import { updateRole, addRole, getRoleInfo } from '@/api/system/role';
+import { treeSelect } from '@/api/system/menu'
 export default ({
   data () {
+    var menuIdsValiadte = (rule, value, callback) => {
+      this.saveForm.menuIds.push(...this.$refs['menuTree'].getCheckedKeys());
+      this.saveForm.menuIds.push(...this.$refs['menuTree'].getHalfCheckedKeys());
+      if (this.saveForm.menuIds.length > 0) {
+        callback();
+      }
+      callback(new Error("请选择菜单权限"));
+    };
     return {
       saveForm: {
         roleId: undefined,
         roleName: undefined,
+        menuIds: [],
+      },
+      menuList: [],
+      menuTreeProps: {
+        id: "menuId",
+        label: "menuName",
+        children: "children",
+
       },
       loading: false,
       dialogFormVisible: false,
@@ -43,8 +70,12 @@ export default ({
       rules: {
         roleName: [
           { required: true, message: '请输入角色名', trigger: 'blur' },
-
         ],
+        menuIds: [
+          {
+            trigger: 'blur', validator: menuIdsValiadte
+          }
+        ]
       }
     }
   },
@@ -53,6 +84,7 @@ export default ({
       this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
+
           if (this.saveForm.roleId === undefined) {
             addRole(this.saveForm).then(() => {
               this.cancel();
@@ -79,11 +111,14 @@ export default ({
       this.saveForm = {
         roleId: undefined,
         roleName: undefined,
+        menuIds: [],
       };
       this.$refs[formName].resetFields();
 
     },
     openDialog (roleId) {
+
+
       if (roleId === undefined) {
         this.dialogFormTitle = '角色新增';
 
@@ -94,7 +129,9 @@ export default ({
         })
       }
       this.dialogFormVisible = true;
-
+      treeSelect().then((resp) => {
+        this.menuList = resp.data;
+      })
     },
 
     cancel () {
@@ -102,7 +139,8 @@ export default ({
     },
     closed () {
       this.resetForm('saveForm');
-    }
+    },
+
 
   }
 })

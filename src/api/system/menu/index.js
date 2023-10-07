@@ -35,3 +35,10 @@ export function deleteMenu (menuIds) {
 		method: 'delete',
 	})
 }
+
+export function treeSelect () {
+	return request({
+		url: prefix + 'treeselect',
+		method: 'get',
+	})
+}
