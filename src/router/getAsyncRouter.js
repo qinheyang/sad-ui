@@ -33,6 +33,7 @@ function getRoute (prefix, item) {
 		// component: (resolve) => require([`@/layout/Index`], resolve),
 		component: (resolve) => require([`@/views${item.component == '' ? '/layout/layout' : item.component}`], resolve),
 		meta: {
+			id: item.menuId,
 			type: item.menuType,
 			title: item.menuName,
 			icon: item.icon,

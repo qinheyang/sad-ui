@@ -22,7 +22,6 @@ export function handleTree (list) {
 
 	}
 	appendChild(tree);
-	console.log(childListMap)
 	function appendChild (data) {
 		for (let t of data) {
 			if (childListMap[t.menuId] != null) {
@@ -32,7 +31,6 @@ export function handleTree (list) {
 		}
 
 	}
-	console.log(tree)
 	return tree;
 
 }

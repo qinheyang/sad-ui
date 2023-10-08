@@ -273,6 +273,7 @@ export default ({
     },
     getSelectTreeData (data) {
       this.saveForm.parentId = data.id;
+      console.log(this.saveForm.parentId);
     },
     getIcon (icon) {
       this.saveForm.icon = icon;

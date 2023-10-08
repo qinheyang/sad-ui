@@ -46,14 +46,13 @@ export default {
     clearSelectTree () {
       this.selectData.id = undefined;
       this.selectData.label = undefined;
+      this.$emit('getSelectTreeData', this.selectData)
 
     },
     handleNodeClick (data) {
       this.selectData.id = data[this.defaultProps.id];
       this.selectData.label = data[this.defaultProps.label];
       this.$emit('getSelectTreeData', this.selectData)
-
-      console.log()
       this.$refs.selectTree.blur();
     },
     setDefaultValue (data) {
