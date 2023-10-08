@@ -26,7 +26,16 @@
                   auto-complete="off">
         </el-input>
       </el-form-item>
-
+      <el-form-item v-if="isShowPassword"
+                    prop="password"
+                    label="密码">
+        <el-input type="password"
+                  placeholder="请输入密码"
+                  v-model="saveForm.password"
+                  maxlength="15"
+                  auto-complete="off">
+        </el-input>
+      </el-form-item>
       <el-form-item prop="email"
                     label="邮箱">
         <el-input placeholder="请输入邮箱"
@@ -90,8 +99,10 @@ export default ({
         nickName: undefined,
         email: undefined,
         phone: undefined,
-        roleIds: undefined
+        roleIds: undefined,
+        password: undefined,
       },
+      isShowPassword: false,
       roles: [],
       loading: false,
       dialogFormVisible: false,
@@ -152,15 +163,18 @@ export default ({
         nickName: undefined,
         email: undefined,
         phone: undefined,
-        roleIds: undefined
-
+        roleIds: undefined,
+        password: undefined
       };
+      this.isShowPassword = false;
       this.$refs[formName].resetFields();
 
     },
     openDialog (userId) {
       if (userId === undefined) {
         this.dialogFormTitle = '用户新增';
+        this.isShowPassword = true;
+        this.saveForm.password = "123";
         getUserInfo().then((resp) => {
           this.roles = resp.roles;
         })
