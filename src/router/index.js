@@ -20,8 +20,10 @@ const routes = [
         children: [
             {
                 path: 'home',
+                name: 'home',
                 component: home,
                 meta: {
+
                     title: '首页',
                     icon: "el-icon-s-home",
                     type: "C",
