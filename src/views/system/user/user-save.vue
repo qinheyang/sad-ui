@@ -129,13 +129,11 @@ export default ({
   },
   methods: {
     submitForm (formName) {
-      this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.saveForm.userId === undefined) {
             addUser(this.saveForm).then(() => {
               this.cancel();
-              this.$globeValue.loadingDelay(this);
               this.$emit('refresh-list');
               this.$message.success("保存成功");
             })
@@ -143,16 +141,10 @@ export default ({
           } else {
             updateUser(this.saveForm).then(() => {
               this.cancel();
-              this.$globeValue.loadingDelay(this);
               this.$emit('refresh-list');
               this.$message.success("保存成功");
             })
           }
-
-
-        } else {
-          this.loading = false;
-          return false;
         }
       });
     },

@@ -194,13 +194,11 @@ export default ({
   },
   methods: {
     submitForm (formName) {
-      this.loading = true;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.saveForm.menuId === undefined) {
             addMenu(this.saveForm).then(() => {
               this.cancel();
-              this.$globeValue.loadingDelay(this);
               this.$emit('refresh-list');
               this.$message.success("保存成功");
             })
@@ -208,14 +206,10 @@ export default ({
           } else {
             updateMenu(this.saveForm).then(() => {
               this.cancel();
-              this.$globeValue.loadingDelay(this);
               this.$emit('refresh-list');
               this.$message.success("保存成功");
             })
           }
-        } else {
-          this.loading = false;
-          return false;
         }
       });
     },
