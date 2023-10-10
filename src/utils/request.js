@@ -3,7 +3,7 @@ import { getToken } from "./auth";
 import { Message } from 'element-ui'
 const request = axios.create({
 	// withCredentials: true,
-	baseURL: process.env.VUE_APP_URL,
+	baseURL: process.env.VUE_APP_BASE_API + process.env.VUE_APP_BASE_URL + "/",
 	timeout: 15000
 })
 
