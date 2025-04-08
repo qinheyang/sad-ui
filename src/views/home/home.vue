@@ -1,7 +1,6 @@
 <template>
   <el-table
     :data="tableData"
-    stripe
     style="width: 100%">
     <el-table-column
       prop="date"

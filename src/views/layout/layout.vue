@@ -46,6 +46,7 @@
 }
 </style>
 <script>
+import '@/assets/style/layout/layout.css';
 import layoutMain from "@/views/layout/components/layout-main.vue";
 import layoutAside from './components/layout-aside.vue';
 import layoutHeader from './components/layout-header.vue';

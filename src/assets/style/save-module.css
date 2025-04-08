@@ -1,0 +1,23 @@
+.save-form-div form{
+    width: 100%;
+    padding: 5%;
+    position: relative;       /* 定位参考点 */
+    height: 100%;        /* 确保容器有足够高度 */
+
+}
+
+.el-form-item__content{
+    margin-left: 150px !important;
+}
+.save-form-btn-div{
+  position: absolute;
+  bottom: 10%;                /* 固定在父容器底部 */
+  left: 0;
+  right: 0;
+  text-align: center;       /* 水平居中 */
+  width: 100%;
+
+}
+.save-form-btn-div button{
+    width: 75%;
+}

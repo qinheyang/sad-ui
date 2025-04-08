@@ -39,7 +39,6 @@
       </div>
     </el-form>
     <el-table :data="tableData"
-              stripe
               row-key="menuId"
               lazy
               :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
@@ -49,28 +48,28 @@
                        prop="menuName"
                        label="菜单名">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        label="图标">
         <template slot-scope="scope">
           <i :class="scope.row.icon"></i>
         </template>
       </el-table-column>
-      <!-- <el-table-column align="center"
+      <!-- <el-table-column align="left"
                        label="菜单类型">
         <template slot-scope="scope">
           {{menuTypeMap[scope.row.menuType]}}
         </template>
       </el-table-column> -->
-      <el-table-column align="center"
+      <el-table-column align="left"
                        prop="component"
                        label="组件地址">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        prop="createTime"
                        label="创建时间"
                        :formatter="formatTime">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        label="操作">
 
         <template slot-scope="scope">

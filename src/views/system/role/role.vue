@@ -39,26 +39,25 @@
       </div>
     </el-form>
     <el-table :data="tableData"
-              stripe
               @selection-change="handleSelectionChange"
               height="490px">
-      <el-table-column align="center"
+      <el-table-column align="left"
                        type="selection"
                        fixed></el-table-column>
       <el-table-column type="index"
-                       align="center"
+                       align="left"
                        label="角色编号"
                        width="100"></el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        prop="roleName"
                        label="角色名">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        prop="createTime"
                        label="创建时间"
                        :formatter="formatTime">
       </el-table-column>
-      <el-table-column align="center"
+      <el-table-column align="left"
                        label="操作">
 
         <template slot-scope="scope">

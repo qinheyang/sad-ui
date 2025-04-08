@@ -2,15 +2,13 @@
   <el-aside width="auto">
     <el-menu :router="true"
              class="el-menu-vertical"
-             background-color=" rgb(48, 56, 86)"
-             text-color="#fff"
-             active-text-color="#ffd046"
              :collapse="isCollapse">
       <tree-menu :data="menuList"></tree-menu>
     </el-menu>
   </el-aside>
 </template>
 <script>
+import '@/assets/style/layout/components/layout-aside.css';
 import treeMenu from "@/views/layout/components/tree-menu.vue";
 
 export default {

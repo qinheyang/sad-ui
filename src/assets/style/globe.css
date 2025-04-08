@@ -1,9 +1,22 @@
+/* :root {
+    --el-font-size: 18px;
+ 
+}
+
+
+.el-button,
+.el-input__inner {
+    font-size: var(--el-font-size);
+} */
+
+
 html,
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
+  
 
 }
 
@@ -51,6 +64,33 @@ body {
     border-radius: 3px;
 }
 
+.el-table,
+.el-table-selection-column {
+    padding: 24px;
+}
+
+
+.el-table__header-wrapper {
+    overflow: hidden;
+    border-top-color: #e2e2e2;
+}
+
+.el-table thead {
+    height: 60px;
+    color: #000;
+
+}
+
+.el-header,
+.header-box {
+    border-bottom: 3px solid #e2e2e2 !important;
+}
+
+td,
+th {
+    border-bottom: 1px solid #e2e2e2 !important;
+}
+
 /* .save-form-div.el-form-item {
     width: 100px !important;
 } */
@@ -61,3 +101,26 @@ body {
 .list-form .el-form-item{
     margin: 0!important;
 } */
+.el-table__fixed {
+    margin-top: 24px;
+    margin-left: 24px;
+}
+
+.el-table {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.el-pagination {
+    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid #e2e2e2 !important;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin: 0 !important;
+}
+
+.el-drawer {
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 24px;
+}

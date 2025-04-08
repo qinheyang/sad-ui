@@ -1,0 +1,7 @@
+.layout-container {
+    background: rgb(229, 229, 229);
+}
+.layout-container .is-vertical {
+    background: rgb(248, 248, 248);
+    border-radius: 24px;
+}
